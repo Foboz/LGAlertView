@@ -452,6 +452,13 @@ typedef NS_ENUM(NSUInteger, LGAlertViewWindowLevel) {
                     cancelButtonTitle:(nullable NSString *)cancelButtonTitle
                destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle;
 
+- (nonnull instancetype)initWithAttributedTitle:(nullable NSAttributedString *)attributedTitle
+                                        message:(nullable NSString *)message
+                                          style:(LGAlertViewStyle)style
+                                   buttonTitles:(nullable NSArray<NSString *> *)buttonTitles
+                              cancelButtonTitle:(nullable NSString *)cancelButtonTitle
+                         destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle;
+
 - (nonnull instancetype)initWithViewAndTitle:(nullable NSString *)title
                                      message:(nullable NSString *)message
                                        style:(LGAlertViewStyle)style

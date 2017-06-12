@@ -75,6 +75,7 @@ LGAlertViewType;
 @property (readwrite) BOOL             showing;
 @property (readwrite) LGAlertViewStyle style;
 @property (readwrite) NSString         *title;
+@property (readwrite) NSAttributedString *attributedTitle;
 @property (readwrite) NSString         *message;
 @property (readwrite) UIView           *innerView;
 @property (readwrite) NSArray          *buttonTitles;
@@ -176,6 +177,26 @@ LGAlertViewType;
         [self setupDefaults];
     }
     return self;
+}
+
+- (nonnull instancetype)initWithAttributedTitle:(nullable NSAttributedString *)attributedTitle
+                                        message:(nullable NSString *)message
+                                          style:(LGAlertViewStyle)style
+                                   buttonTitles:(nullable NSArray<NSString *> *)buttonTitles
+                              cancelButtonTitle:(nullable NSString *)cancelButtonTitle
+                         destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle {
+  self = [super init];
+  if (self) {
+    self.style = style;
+    self.attributedTitle = attributedTitle;
+    self.message = message;
+    self.buttonTitles = buttonTitles.mutableCopy;
+    self.cancelButtonTitle = cancelButtonTitle;
+    self.destructiveButtonTitle = destructiveButtonTitle;
+    
+    [self setupDefaults];
+  }
+  return self;
 }
 
 - (nonnull instancetype)initWithViewAndTitle:(nullable NSString *)title
@@ -2085,15 +2106,20 @@ LGAlertViewType;
 
         CGFloat offsetY = 0.0;
 
-        if (self.title) {
+        if (self.title || self.attributedTitle) {
             self.titleLabel = [UILabel new];
-            self.titleLabel.text = self.title;
-            self.titleLabel.textColor = self.titleTextColor;
-            self.titleLabel.textAlignment = self.titleTextAlignment;
             self.titleLabel.numberOfLines = 0;
-            self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
             self.titleLabel.backgroundColor = UIColor.clearColor;
-            self.titleLabel.font = self.titleFont;
+            self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+          
+            if (self.title) {
+              self.titleLabel.text = self.title;
+              self.titleLabel.textColor = self.titleTextColor;
+              self.titleLabel.textAlignment = self.titleTextAlignment;
+              self.titleLabel.font = self.titleFont;
+            } else {
+              self.titleLabel.attributedText = self.attributedTitle;
+            }
 
             CGSize titleLabelSize = [self.titleLabel sizeThatFits:CGSizeMake(width - LGAlertViewPaddingWidth * 2.0, CGFLOAT_MAX)];
             CGRect titleLabelFrame = CGRectMake(LGAlertViewPaddingWidth, self.innerMarginHeight, width - LGAlertViewPaddingWidth * 2.0, titleLabelSize.height);

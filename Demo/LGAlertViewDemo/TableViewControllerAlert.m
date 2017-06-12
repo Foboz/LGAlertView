@@ -47,7 +47,9 @@
                              @"",
                              @"LGAlertView + Transition 1",
                              @"LGAlertView + Transition 2",
-                             @"LGAlertView + Transition 3"];
+                             @"LGAlertView + Transition 3",
+                             @"",
+                             @"LGAlertView + Attributed Title"];
 
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     }
@@ -645,6 +647,20 @@
             });
 
             break;
+        }
+        case 29: {
+          NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:@"Some attributed message\nwith second line"];
+          NSRange range = [attributedTitle.string rangeOfString:@"\n"];
+          [attributedTitle addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:0.5 green:0.5 blue:0.0 alpha:1.0] range:NSMakeRange(0, range.location)];
+          [attributedTitle addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:1.0 green:0.0 blue:0.5 alpha:1.0] range:NSMakeRange(range.location + range.length, [attributedTitle length] - range.location - range.length)];
+          LGAlertView *alertView = [[LGAlertView alloc] initWithAttributedTitle:attributedTitle
+                                                                        message:nil
+                                                                          style:LGAlertViewStyleAlert
+                                                                   buttonTitles:@[@"Button 1"]
+                                                              cancelButtonTitle:@"Cancel"
+                                                         destructiveButtonTitle:@"Destructive"];
+          
+          [alertView showAnimated:YES completionHandler:nil];
         }
     }
 
