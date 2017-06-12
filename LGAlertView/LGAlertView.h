@@ -157,6 +157,8 @@ typedef NS_ENUM(NSUInteger, LGAlertViewWindowLevel) {
  else window.width - 16.0
  */
 @property (assign, nonatomic) CGFloat width UI_APPEARANCE_SELECTOR;
+/** Default is NSNotFound */
+@property (assign, nonatomic) CGFloat innerTitleVerticalPadding UI_APPEARANCE_SELECTOR;
 /** Default is [UIColor colorWithWhite:0.85 alpha:1.0] */
 @property (strong, nonatomic, nullable) UIColor *separatorsColor UI_APPEARANCE_SELECTOR;
 /** Default is UIScrollViewIndicatorStyleBlack */

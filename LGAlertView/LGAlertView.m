@@ -830,6 +830,7 @@ LGAlertViewType;
         _cancelButtonOffsetY = 8.0;
         _heightMax = NSNotFound;
         _width = NSNotFound;
+        _innerTitleVerticalPadding = NSNotFound;
         _separatorsColor = [UIColor colorWithWhite:0.85 alpha:1.0];
         _indicatorStyle = UIScrollViewIndicatorStyleBlack;
         _showsVerticalScrollIndicator = NO;
@@ -971,6 +972,7 @@ LGAlertViewType;
     _cancelButtonOffsetY = appearance.cancelButtonOffsetY;
     _heightMax = appearance.heightMax;
     _width = appearance.width;
+    _innerTitleVerticalPadding = appearance.innerTitleVerticalPadding;
     _separatorsColor = appearance.separatorsColor;
     _indicatorStyle = appearance.indicatorStyle;
     _showsVerticalScrollIndicator = appearance.showsVerticalScrollIndicator;
@@ -3360,7 +3362,11 @@ LGAlertViewType;
 }
 
 - (CGFloat)innerMarginHeight {
+  if (self.innerTitleVerticalPadding != NSNotFound) {
+    return self.innerTitleVerticalPadding;
+  } else {
     return self.style == LGAlertViewStyleAlert ? 16.0 : 12.0;
+  }
 }
 
 @end

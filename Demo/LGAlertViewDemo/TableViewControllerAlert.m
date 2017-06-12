@@ -659,6 +659,7 @@
                                                                    buttonTitles:@[@"Button 1"]
                                                               cancelButtonTitle:@"Cancel"
                                                          destructiveButtonTitle:@"Destructive"];
+          alertView.innerTitleVerticalPadding = 46.0;
           
           [alertView showAnimated:YES completionHandler:nil];
         }
